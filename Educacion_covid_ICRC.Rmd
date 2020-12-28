@@ -1,0 +1,295 @@
+---
+title: "Informe sobre perfil cognitivo y estrategias de aprendizaje"
+author: 'Investigación: Educación en tiempos de COVID'
+output:
+  html_document: 
+    theme: lumen
+    highlight: pygments
+    toc: yes
+    toc_float: yes
+    code_download: no
+    code_folding: hide
+---
+  ![](C:/Users/jniev/Desktop/ICRC/ICRClinkedin.png){width='9000px'}
+
+```{r 1, message=FALSE, echo=FALSE}
+library(readr)
+library(tidyverse)
+library(lubridate)
+library(ggplot2)
+
+participante <- 105
+
+#Cargo archivo con resultados brutos de memoria de trabajo (ospan)
+wm_summary2 <- read.csv("C:/Users/jniev/Desktop/wm_summary2.csv")
+
+#Agrego una nueva tabla condicional: Rangos_ospan
+tabladeresultados <- wm_summary2 %>% 
+  mutate(Rangos_ospan = case_when(
+    ospan %in% 0:17 ~ "Esta prueba ha sido realmente un gran desafío para ti debido a que te cuesta concentrarte en varias tareas al mismo tiempo. Manipular información y organizarla mentalmente te requiere un esfuerzo extra (comparado con el promedio). Por ello, trata de planificar paso por paso tus tareas, de concentrarte en una cosa a la vez para mejorar tu rendimiento y aprender estrategias de estudio para llegar a tus metas.",
+    ospan %in% 18:27 ~ "Tu capacidad de memoria de trabajo se encuentra dentro del promedio o levemente por debajo del promedio. Esto significa que tienes habilidad para mantener y manipular información mentalmente aunque debas realizar un mayor esfuerzo para concentrarte en situaciones problemáticas más complejas (estas entre el percentil 50 y 25 comparado con otros estudiantes universitarios de Argentina). ¡Buen trabajo!",
+    ospan %in% 28:37 ~ "Tu capacidad de memoria de trabajo esta levemente por encima del promedio. Esto significa que tienes buena habilidad para mantener y manipular información mentalmente (estas entre el percentil 75 y 50 comparado con otros estudiantes universitarios de Argentina). ¡Muy bien hecho!",
+    ospan %in% 38:99 ~ "Tu capacidad de memoria de trabajo es muy alta. Esto significa que tienes muy buena habilidad para mantener y manipular información mentalmente (estas por encima del 75% comparado con otros estudiantes universitarios de Argentina). ¡Felicitaciones!"))
+
+# Selecciono el dato del dataframe y le pongo de nombre: id_sujeto
+options(scipen = 999)
+id_sujeto <- tabladeresultados[participante,"subjectid"]
+
+#Selecciono el dato en el dataframe y le pongo de nombre resultado_1n, donde aparece el resultado numérico en la tarea de memoria de trabajo
+resultado_1n <- tabladeresultados[participante,"ospan"]
+
+#Selecciono el dato en el dataframe y le pongo de nombre resultado_1 a la interpretación del resultado en la tarea de memoria de trabajo
+resultado_1i <- tabladeresultados[participante,"Rangos_ospan"]
+
+#Luego reemplazo 
+
+```
+
+# Resultados del participante N°: `r id_sujeto`  
+
+## Perfil Memoria de Trabajo
+A continuación veras dos resultados correspondientes a una prueba de memoria de trabajo que realizaste (cuando debías recordar letras alternadas con cálculos aritméticos). Esta prueba llamada AOSPAN evalúa un área activa de trabajo mental que podemos usar para almacenar información en el curso de nuestras actividades mentales. Como por ejemplo cuando: <br><br>
+
+* Recuerdas un nuevo número telefónico, correo electrónico o un número de patente mientras estas tratando de encontrar una lapicera y papel para escribir…<br><br>
+* Estás siguiendo indicaciones verbales…<br><br>
+*	Calculas si te alcanzará el dinero mientras compras en el supermercado…<br><br>
+*	Midiendo y combinando la cantidad correcta de ingredientes de una receta que acabas de leer…<br><br>
+*	Prestas atención a lo que el profesor está diciendo en clase mientras buscas tomar nota de las ideas más relevantes, o bien…<br><br>
+*	Tratas de mantener los detalles de la pregunta que hizo el profesor mientras elaboras una respuesta adecuada y completa…<br><br>
+
+En estas y muchas otras situaciones donde tienes que procesar distintas fuentes de información y tomar decisiones, se pone en juego en menor o mayor medida tu capacidad de memoria de trabajo.<br>
+Si bien la prueba es muy confiable, a veces un bajo desempeño puede depender de circunstancias particulares (por ejemplo, tu cansancio del día, preocupaciones del momento, falta de concentración, de motivación, etc.). Es por eso que los resultados que verás a continuación es sólo una aproximación a tu habilidad pero debes interpretarla de acuerdo a múltiples factores presentes a la hora de ser evaluado, y por supuesto, no es definitivo ni abarca todas tus habilidades. Es un dato que esperamos te pueda ser útil para saber más de ti mismo. Te encontrarás con dos medidas: tu capacidad de memoria de trabajo y tu velocidad de procesamiento.<br><br>
+
+__Tu resultado en memoria de trabajo__: `r resultado_1i`
+<br><br>
+
+```{r 2, message=FALSE, echo=FALSE}
+
+#Cargo archivo con resultados brutos de procesamiento visoespacial
+symm_summary <- read.csv("C:/Users/jniev/Desktop/symm_summary.csv")
+
+tabladeresultados2 <- symm_summary %>%
+  mutate(Rangos_sspan = case_when(
+    sspan %in% 0:12 ~ "Esta tarea ha sido todo un reto para ti. Cuando tienes que hacerte un mapa mental, planificar visualmente un esquema, o imaginar una secuencia de pasos, puede costarte un mayor esfuerzo que el promedio. Ayúdate de otras estrategias para recordar (tomando notas, escuchando audios, viendo videos o repasando más veces el material).",
+    sspan %in% 13:18 ~ "Tu capacidad para manipular mentalmente datos visuales y espaciales se encuentra dentro del promedio o levemente por debajo del promedio. Cuando la cantidad de información aumente o se haga más compleja, es muy probable que tengas que realizar un mayor esfuerzo para tener éxito en la resolución de problemas (estas entre el percentil 50 y 25 comparado con estudiantes de USA). ¡Buen trabajo!",
+    sspan %in% 19:24 ~ "Tu capacidad para mantener y manipular información de tipo visoespacial esta levemente por encima del promedio (estas entre el percentil 75 y 50 comparado con estudiantes de USA). ¡Muy bien hecho!",
+    sspan %in% 25:99 ~ "Tu capacidad para mantener y manipular datos de tipo viso-espaciales es muy alta (estas por encima del 75% comparado con estudiantes de USA). ¡Felicitaciones!")) 
+
+#Selecciono el dato en el dataframe y le pongo de nombre resultado_2n, donde aparece el resultado numérico en la tarea visoespacial
+resultado_2n <- tabladeresultados2[participante,"sspan"]
+
+#Selecciono el dato en el dataframe y le pongo de nombre resultado_2i, donde aparece la interpretación del resultado en la tarea visoespacial
+resultado_2i <- tabladeresultados2[participante,"Rangos_sspan"]
+
+#Luego reemplazo
+```
+
+## Perfil Procesamiento Visoespacial
+Otro aspecto muy importante de la memoria de trabajo se refiere a la capacidad para procesar información viso-espacial. Esta capacidad la evaluamos cuando tenías que recordar la secuencia de cuadrados de colores mientras debías decidir si una figura era simétrica o asimétrica. 
+Esta capacidad se pone en juego en situaciones como: <br><br>
+
+*	Recordar donde te estacionaste y decidir qué camino tomar hacia ese sitio… <br><br>
+*	Hacer un croquis o un mapa mentalmente… <br><br>
+*	Decidir donde debería sentarse cada invitado alrededor de una mesa para ocho de forma que se evite sentar juntos a parejas separadas… <br><br>
+*	Imaginarte una secuencia de pasos en un plan… <br><br>
+*	Tratar de recordar un esquema visual o cuadro sinóptico que preparaste para tu exámen… <br><br>
+
+En estas y muchas otras situaciones donde tienes que integrar información viso-espacial y tomar decisiones en base a esos datos, se pone en juego en menor o mayor medida tu capacidad de memoria de trabajo viso-espacial. <br><br>
+
+__Tu resultado en memoria de trabajo visoespacial__: `r resultado_2i`
+<br><br>
+
+## Perfil Estrategias de aprendizaje
+
+A continuación verás un perfil de tus estrategias de aprendizaje. Éste fue elaborado en base a tus respuestas al cuestionario sobre tus hábitos de estudio, estrategias de aprendizaje y motivación durante el cursado de las materias online. Las estrategias de aprendizaje en general se refieren a pensamientos, actitudes y conductas que te ayudan a adquirir nueva información e integrarla a tus conocimientos previos. Este perfil te ayudará a conocer mejor tus fortalezas y debilidades en el estudio. Hay que tener en cuenta que las estrategias de aprendizaje aquí evaluadas se pueden aprender y re-entrenar. Para aquellos puntos que presentes más dificultades te sugerimos algunos tips a tener en cuenta.
+
+__Tus resultados en estrategias de aprendizaje y autoregulación__:
+<br><br>
+
+
+```{r 3, message=FALSE, echo=FALSE, results= 'hide'}
+
+#Abro el archivo donde tengo los resultados de motivacion y estrategias de aprendizaje
+tabladeresultados3 <- read.csv("C:/Users/jniev/Desktop/MSLQizqder.csv")
+
+#
+motivacion_aprendizaje <- c("Interés", "Expectativa de éxito", "* Ansiedad ante los exámenes", "Práctica", "Elaboración", "Organización", "Metacognición", "Ambiente y tiempo de estudio", "Regulación del esfuerzo")
+
+
+#Llamo a la libreria para graficar
+library(ggplot2)
+
+ggplot(tabladeresultados3) +
+ aes(x = motivacion_aprendizaje, weight = X1234) +
+ geom_bar(fill = "#0C4C8A") +
+ labs(x = "Motivación y Estrategias de Aprendizaje", y = "%") +
+ coord_flip() +
+ ggthemes::theme_fivethirtyeight()+
+  geom_hline(
+  aes(
+    yintercept = 50),
+    color="red",
+    linetype=2,
+    size=1.3,
+    alpha=0.5)
+
+```
+
+
+```{r 4, message=FALSE, echo=FALSE, results= 'hide'}
+
+#Cargo tabla de resultados4 para poder agregarle las interpretaciones
+tabladeresultados4 <- read.csv("C:/Users/jniev/Desktop/MSLQarrab.csv")
+
+#Elijo en el dataframe los datos que necesito para poner los resultados numericos
+resultadosmya <- tabladeresultados4[participante,(2:10)]
+
+interes <- resultadosmya[1]
+expectativa <- resultadosmya[2]
+ansiedad <- resultadosmya[3]
+practica <- resultadosmya[4]
+elaboracion <- resultadosmya[5]
+organizacion <- resultadosmya[6]
+metacognicion <- resultadosmya[7]
+ambytdeestudio <- resultadosmya[8]
+esfuerzo <- resultadosmya[9]
+
+#Genero con mutate las recomendaciones según el resultado del sujeto
+
+tabladeresultados4 <- tabladeresultados4 %>%
+  mutate(interesre = case_when(
+    Interés %in% 0:50 ~"Esta es una estrategia que necesitas mejorar. Puedes seguir alguna de estas recomendaciones: Parafrasea y resume la información más importante. Utiliza tus propias palabras para describir el material cubierto durante el curso o que debes leer. Imagina que eres el profesor tratando de explicar el tema a tus alumnos. Trata de ir relacionando cada tema con los demás temas. Pregúntate, ¿cuáles son las conexiones entre lo que has escuchado en clases o en una discusión y lo leído en los libros?",
+    Interés %in% 51:75 ~ "Esta es una estrategia que deberías considerar mejorar. Puedes seguir alguna de estas recomendaciones: Parafrasea y resume la información más importante. Utiliza tus propias palabras para describir el material cubierto durante el curso o que debes leer. Imagina que eres el profesor tratando de explicar el tema a tus alumnos. Trata de ir relacionando cada tema con los demás temas. Pregúntate, ¿cuáles son las conexiones entre lo que has escuchado en clases o en una discusión y lo leído en los libros?",
+    Interés %in% 76:100 ~ "Esta es una de estrategias que utilizas frecuentemente, una de tus fortalezas. ¡Continúa así!"))
+
+tabladeresultados4 <- tabladeresultados4 %>%
+  mutate(expectativare = case_when(
+    Expectativa.de.éxito %in% 0:50 ~"Esta es una estrategia que necesitas mejorar. Puedes seguir alguna de estas recomendaciones: Trata de evaluar cómo realizas las tareas necesarias para aprender la materia desde diferentes puntos de vista. Por ejemplo, describe cuán efectivo te parece que eres en tu forma de aprender y luego imagina cómo evaluaría esa manera un compañero. Al analizar la forma de encarar una tarea, puedes ser capaz de darte cuenta qué estás haciendo correctamente y en que te estas equivocando a fin de cambiar tu modo de enfrentar la situacion. Una mejor comprensión de la forma en que aprendes, qué funciona y qué no funciona, puede ayudarte a incrementar tu confianza en lo que haces mientras cursas las materias.",
+    Expectativa.de.éxito %in% 51:75 ~ "Esta es una estrategia que deberías considerar mejorar. Puedes seguir alguna de estas recomendaciones: Trata de evaluar cómo realizas las tareas necesarias para aprender la materia desde diferentes puntos de vista. Por ejemplo, describe cuán efectivo te parece que eres en tu forma de aprender y luego imagina cómo evaluaría esa manera un compañero. Al analizar la forma de encarar una tarea, puedes ser capaz de darte cuenta qué estás haciendo correctamente y en que te estas equivocando a fin de cambiar tu modo de enfrentar la situacion. Una mejor comprensión de la forma en que aprendes, qué funciona y qué no funciona, puede ayudarte a incrementar tu confianza en lo que haces mientras cursas las materias.",
+    Expectativa.de.éxito %in% 76:100 ~ "Esta es una de estrategias que utilizas frecuentemente, una de tus fortalezas. ¡Continúa así!"))
+
+
+tabladeresultados4 <- tabladeresultados4 %>%
+  mutate(ansiedadre = case_when(
+    Ansiedad.ante.los.exámenes %in% 0:50 ~ "*Importante: Ansiedad ante los exámenes se interpreta de manera inversa. Por lo que a menor ansiedad ante los exámenes, mayores estrategias posees. Esta es una de estrategias que utilizas frecuentemente, una de tus fortalezas. ¡Continúa así!",
+    Ansiedad.ante.los.exámenes %in% 51:75 ~ "*Importante: Ansiedad ante los exámenes, se interpreta de manera inversa. Por lo que a menor ansiedad ante los exámenes, mayores estrategias posees. Esta es una estrategia que deberías considerar mejorar. Puedes seguir alguna de estas recomendaciones: Está demostrado que desarrollar mejores habilidades de estudio disminuye los niveles de ansiedad. Trata de prepararte bien para las clases y completar las tareas a tiempo, no esperar a último momento para hacer las cosas o prepararte para el examen. Hacer esto ayudará a que te sientas más confiado en el momento del examen y a reducir la ansiedad. Cuando estés dando un examen, concéntrate en una pregunta o problema a la vez. Si encuentras dificultades en una pregunta, continúa y regresa para completarla luego. Recuerdate a ti mismo que te has preparado bien y si no logras responder está bien, aún puedes responder las demás.",
+    Ansiedad.ante.los.exámenes %in% 76:100 ~ "*Importante: Ansiedad ante los exámenes, se interpreta de manera inversa. Por lo que a menor ansiedad ante los exámenes, mayores estrategias posees. Esta es una estrategia que necesitas mejorar. Puedes seguir alguna de estas recomendaciones: Está demostrado que desarrollar mejores habilidades de estudio disminuye los niveles de ansiedad. Trata de prepararte bien para las clases y completar las tareas a tiempo, no esperar a último momento para hacer las cosas o prepararte para el examen. Hacer esto ayudará a que te sientas más confiado en el momento del examen y a reducir la ansiedad. Cuando estés dando un examen, concéntrate en una pregunta o problema a la vez. Si encuentras dificultades en una pregunta, continúa y regresa para completarla luego. Recuerdate a ti mismo que te has preparado bien y si no logras responder está bien, aún puedes responder las demás. "))
+
+
+tabladeresultados4 <- tabladeresultados4 %>%
+  mutate(practicare = case_when(
+    Práctica %in% 0:50 ~ "Esta es una estrategia que necesitas mejorar. Puedes seguir alguna de estas recomendaciones: Haz una lista de los temas y los términos vistos en la materia. Defínelos y repítelos en voz alta. Distribuye esos términos o conceptos en listas más cortas que incluyan aquellos que están conceptualmente más cercanos o relacionados. Trata de hacerte imágenes con ellos o rimas que te ayuden a recordar las listas. Intercala estudio y revision de lo estudiado para tratar de medir tu propia capacidad de recordarlos y afianzar lo aprendido.",
+    Práctica %in% 51:75 ~ "Esta es una estrategia que deberías considerar mejorar. Puedes seguir alguna de estas recomendaciones: Haz una lista de los temas y los términos vistos en la materia. Defínelos y repítelos en voz alta. Distribuye esos términos o conceptos en listas más cortas que incluyan aquellos que están conceptualmente más cercanos o relacionados. Trata de hacerte imágenes con ellos o rimas que te ayuden a recordar las listas. Intercala estudio y revision de lo estudiado para tratar de medir tu propia capacidad de recordarlos y afianzar lo aprendido.",
+    Práctica %in% 76:100 ~ "Esta es una de estrategias que utilizas frecuentemente, una de tus fortalezas. ¡Continúa así!"))
+
+tabladeresultados4 <- tabladeresultados4 %>%
+  mutate(elaboracionre = case_when(
+    Elaboración %in% 0:50 ~ "Esta es una estrategia que necesitas mejorar. Puedes seguir alguna de estas recomendaciones: Parafrasea y resume la información más importante. Utiliza tus propias palabras para describir el material cubierto durante el curso o que debes leer. Imagina que eres el profesor tratando de explicar el tema a tus alumnos. Trata de ir relacionando cada tema con los demás temas. Pregúntate, cuáles son las conexiones entre lo que has escuchado en clases o en una discusión y lo leído en los libros?",
+    Elaboración %in% 51:75 ~ "Esta es una estrategia que deberías considerar mejorar. Puedes seguir alguna de estas recomendaciones: Parafrasea y resume la información más importante. Utiliza tus propias palabras para describir el material cubierto durante el curso o que debes leer. Imagina que eres el profesor tratando de explicar el tema a tus alumnos. Trata de ir relacionando cada tema con los demás temas. Pregúntate, cuáles son las conexiones entre lo que has escuchado en clases o en una discusión y lo leído en los libros?",
+    Elaboración %in% 76:100 ~ "Esta es una de estrategias que utilizas frecuentemente, una de tus fortalezas. ¡Continúa así!" ))
+
+tabladeresultados4 <- tabladeresultados4 %>%
+  mutate(organizacionre = case_when(
+    Organización %in% 0:50 ~ "Esta es una estrategia que necesitas mejorar. Puedes seguir alguna de estas recomendaciones: Realiza un índice o esquema de la materia e identifica en qué partes los textos y los temas de clases se superponen y en cuales no se superponen. Esto te dará un punto de partida para establecer conexiones entre las ideas que se te presentaron en ambos contextos. Haz cuadros, diagramas o tablas con los conceptos más importantes. A veces un diagrama de flujo puede ser muy útil para tratar de entender cómo las diferentes ideas se integran.",
+    Organización %in% 51:75 ~ "Esta es una estrategia que deberías considerar mejorar. Puedes seguir alguna de estas recomendaciones: Realiza un índice o esquema de la materia e identifica en qué partes los textos y los temas de clases se superponen y en cuales no se superponen. Esto te dará un punto de partida para establecer conexiones entre las ideas que se te presentaron en ambos contextos. Haz cuadros, diagramas o tablas con los conceptos más importantes. A veces un diagrama de flujo puede ser muy útil para tratar de entender cómo las diferentes ideas se integran.",
+    Organización %in% 76:100 ~ "Esta es una de estrategias que utilizas frecuentemente, una de tus fortalezas. ¡Continúa así!"))
+
+tabladeresultados4 <- tabladeresultados4 %>%
+  mutate(metacognicionre = case_when(
+    Metacognición %in% 0:50 ~ "Esta es una estrategia que necesitas mejorar. Puedes seguir alguna de estas recomendaciones: Echa 'una ojeada' al material de lectura antes de empezar para ver cómo está organizado. Mira los títulos y subtítulos del texto para darte una idea de cómo se relacionan unos con otros. Mientras lees, hazte preguntas acerca del párrafo que acabas de leer y anota las palabras clave en los márgenes. Trata de identificar qué conceptos no comprendes bien. A pesar de que esta estrategia puede tomar más tiempo al inicio, luego tendrás mayores posibilidades de recordar lo que has leído. Te ahorrará tiempo cuando estés estudiando para el examen.",
+    Metacognición %in% 51:75 ~ "Esta es una estrategia que deberías considerar mejorar. Puedes seguir alguna de estas recomendaciones: Echa 'una ojeada' al material de lectura antes de empezar para ver cómo está organizado. Mira los títulos y subtítulos del texto para darte una idea de cómo se relacionan unos con otros. Mientras lees, hazte preguntas acerca del párrafo que acabas de leer y anota las palabras clave en los márgenes. Trata de identificar qué conceptos no comprendes bien. A pesar de que esta estrategia puede tomar más tiempo al inicio, luego tendrás mayores posibilidades de recordar lo que has leído. Te ahorrará tiempo cuando estés estudiando para el examen.",
+    Metacognición %in% 76:100 ~ "Esta es una de estrategias que utilizas frecuentemente, una de tus fortalezas. ¡Continúa así!"))
+
+tabladeresultados4 <- tabladeresultados4 %>%
+  mutate(ambytiempore = case_when(
+    Ambiente.y.tiempo.de.estudio %in% 0:50 ~ "Esta es una estrategia que necesitas mejorar. Puedes seguir alguna de estas recomendaciones: Mantén un registro de lo que haces con tu tiempo de estudio durante una semana. Escribe cuáles son tus objetivos para cada período de estudio y luego registra lo que realmente lograste durante el mismo. Analiza estos registros al fin de la semana. Tal vez quieras cambiar el lugar en el que estudias, el tiempo o la persona con la que estudias. Trata de lograr un esquema de horarios que se adapte mejor a vos.",
+    Ambiente.y.tiempo.de.estudio %in% 51:75 ~ "Esta es una estrategia que deberías considerar mejorar. Puedes seguir alguna de estas recomendaciones: Mantén un registro de lo que haces con tu tiempo de estudio durante una semana. Escribe cuáles son tus objetivos para cada período de estudio y luego registra lo que realmente lograste durante el mismo. Analiza estos registros al fin de la semana. Tal vez quieras cambiar el lugar en el que estudias, el tiempo o la persona con la que estudias. Trata de lograr un esquema de horarios que se adapte mejor a vos.",
+    Ambiente.y.tiempo.de.estudio %in% 76:100 ~ "Esta es una de estrategias que utilizas frecuentemente, una de tus fortalezas. ¡Continúa así!"))
+
+tabladeresultados4 <- tabladeresultados4 %>%
+  mutate(esfuerzore = case_when(
+    Regulación.del.esfuerzo %in% 0:50 ~ "Esta es una estrategia que necesitas mejorar. Puedes seguir alguna de estas recomendaciones: Mantén una lista de temas que te encuentras postergando (dejando para después) en lugar de tratar de estudiarlos. Trata de analizar por qué los pospones discutiéndolos con otros estudiantes. Hablar acerca de ellos puede ayudarte a considerar otras formas de actuar más rapidamente y enfrentarlos, en lugar de continuar dilatando su estudio.",
+    Regulación.del.esfuerzo %in% 51:75 ~ "Esta es una estrategia que deberías considerar mejorar. Puedes seguir alguna de estas recomendaciones: Mantén una lista de temas que te encuentras postergando (dejando para después) en lugar de tratar de estudiarlos. Trata de analizar por qué los pospones discutiéndolos con otros estudiantes. Hablar acerca de ellos puede ayudarte a considerar otras formas de actuar más rapidamente y enfrentarlos, en lugar de continuar dilatando su estudio.",
+    Regulación.del.esfuerzo %in% 76:100 ~ "Esta es una de estrategias que utilizas frecuentemente, una de tus fortalezas. ¡Continúa así!"))
+
+#Armo una nueva fila para la interpretación de los resultados y la elijo del dataframe
+interesre <- tabladeresultados4[participante,11]
+expectativare <- tabladeresultados4[participante,12]
+ansiedadre <- tabladeresultados4[participante,13]
+practicare <- tabladeresultados4[participante,14]
+elaboracionre <- tabladeresultados4[participante,15]
+organizacionre <- tabladeresultados4[participante,16]
+metacognicionre <- tabladeresultados4[participante,17]
+ambytiempore <- tabladeresultados4[participante,18]
+esfuerzore <- tabladeresultados4[participante,19]
+
+#Describo y reemplazo
+```
+
+
+__Descripción de resultados__
+
+_Motivación:_
+
+* __Interés__: `r interes`%. Esta es una medida de cuán interesado estás en las materias que has cursado en modalidad online. Un puntaje superior al 75% indica que te gustaron mucho las materias y estuviste muy interesado en el contenido estudiado. 
+    * `r interesre`
+<br><br>
+
+* __Expectativa de éxito__: `r expectativa`%. Esta es una medida de tu percepción acerca de las posibilidades de aprobar las materias que cursas online y de tu confianza en comprender el contenido de las mismas. Un puntaje superior a 75% indica que crees que lo puedes hacer muy bien y sientes mucha confianza de que lograrás dominar el material de estudio. 
+    * `r expectativare`
+<br><br>
+
+ * __Ansiedad ante los exámenes__: `r ansiedad`%. Esta es una medida de cuán preocupado estás acerca de los exámenes y cuán a menudo experimentas pensamientos negativos o ansiedad que te distraen mientras realizas un examen. A diferencia de otras escalas, un nivel alto en esta significa que te pones muy ansioso/a ante situaciones de evaluación. 
+    * `r ansiedadre`
+<br><br>
+
+ _Estrategias de Aprendizaje:_
+
+* __Práctica__: `r practica`%. Esta escala evalúa cuán seguido utilizas estrategias durante el cursado de las materias online, tales como volver a leer tus notas de clases o las lecturas del curso o bien memorizar listas de palabras o conceptos claves. Un puntaje alto indica que las utilizas bastante a menudo. 
+    * `r practicare`
+<br><br>
+
+ * __Elaboración__: `r elaboracion`%. Esta escala refleja cuán seguido intentas resumir o parafrasear (poner en tus propias palabras) el material que lees de tus clases online, y cuán frecuente tratas de relacionar lo que ya sabías con lo que estás aprendiendo. Un alto puntaje significa que utilizas estas estrategias bastante seguido. Estas estrategias suelen tener un mejor resultado que las estrategias de práctica. 
+    * `r elaboracionre`
+<br><br>
+
+  * __Organización__: `r organizacion`%. Esta escala refiere a tu habilidad para seleccionar las ideas principales de lo que lees como así tambien tus intentos de organizar e integrar lo que necesitas aprender de las materias que cursas online. 
+      * `r organizacionre` 
+<br><br>
+
+  * __Metacognición__: `r metacognicion`%. Esta es una medida de cuán seguido piensas acerca de lo que estás leyendo o estudiando mientras realizas tus actividades referidas a las materias online. Por ejemplo, ¿monitoreas tu atención mientras lees o encuentras que has leído 10 páginas pero no puedes recordar nada de ellas?, ¿realizas ajustes de tu velocidad de lectura si estás ante un texto difícil comparado con una revista de mas facil lectura? Un alto puntaje significa que tratas de planear tu trabajo y chequear si comprendes lo visto en el curso online. 
+      * `r metacognicionre`
+<br><br>
+
+* __Ambiente y tiempo de estudio__: `r ambytdeestudio`%. Esta escala es una medida de cuán bien manejas tus horarios y tu tiempo, así como el uso del lugar de estudio. Un alto puntaje indica que tiene un método para administrar tus horarios y que tratas de estudiar en un lugar favorable para completar tus tareas. 
+    * `r ambytiempore`
+<br><br>
+
+
+* __Regulación del esfuerzo__: `r esfuerzo`%. Esta escala refiere a tu voluntad para realizar esfuerzo en tus tareas y actividades académicas, aún cuando sean difíciles. Un alto puntaje significa que lo intentas con ahínco y pones esfuerzo en tus estudios. 
+    * `r esfuerzore`
+<br><br>
+
+
+## __¡Gracias por haber participado!__
+<br>
+
+Sigamos conectados. Seguinos en nuestras redes:
+<br><br>
+![](C:/Users/jniev/Desktop/linkedin.png){width='30px'}
+[Linkedin](https://ar.linkedin.com/company/cognitive-icrc)
+<br>
+![](C:/Users/jniev/Desktop/facebook.jpg){width='30px'}
+[Facebook](https://www.facebook.com/permalink.php?id=101193491706272&story_fbid=133982445094043)
+<br>
+![](C:/Users/jniev/Desktop/researchgate.png){width='30px'}
+[ResearchGate](https://www.researchgate.net/lab/International-Cognitive-Research-Consortium-Mariel-Musso) 
+<br><br>
+
+
+Código fuente disponible [aquí](https://github.com/JulietaNieva).
+<br><br>
+<a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/deed.es_ES"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a><br />
+
+
+"C:\Users\jniev\Desktop\Educacion_covid_ICRC.html"
