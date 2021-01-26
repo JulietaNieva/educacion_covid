@@ -21,7 +21,7 @@ library(ggplot2)
 participante <- 105
 
 #Cargo archivo con resultados brutos de memoria de trabajo (ospan)
-wm_summary2 <- read.csv("C:/Users/jniev/Desktop/wm_summary2.csv")
+wm_summary2 <- read.csv("wm_summary2.csv")
 
 #Agrego una nueva tabla condicional: Rangos_ospan
 tabladeresultados <- wm_summary2 %>% 
@@ -66,7 +66,7 @@ __Tu resultado en memoria de trabajo__: `r resultado_1i`
 ```{r 2, message=FALSE, echo=FALSE}
 
 #Cargo archivo con resultados brutos de procesamiento visoespacial
-symm_summary <- read.csv("C:/Users/jniev/Desktop/symm_summary.csv")
+symm_summary <- read.csv("symm_summary.csv")
 
 tabladeresultados2 <- symm_summary %>%
   mutate(Rangos_sspan = case_when(
@@ -110,7 +110,7 @@ __Tus resultados en estrategias de aprendizaje y autoregulación__:
 ```{r 3, message=FALSE, echo=FALSE, results= 'hide'}
 
 #Abro el archivo donde tengo los resultados de motivacion y estrategias de aprendizaje
-tabladeresultados3 <- read.csv("C:/Users/jniev/Desktop/MSLQizqder.csv")
+tabladeresultados3 <- read.csv("MSLQizqder.csv")
 
 #
 motivacion_aprendizaje <- c("Interés", "Expectativa de éxito", "* Ansiedad ante los exámenes", "Práctica", "Elaboración", "Organización", "Metacognición", "Ambiente y tiempo de estudio", "Regulación del esfuerzo")
@@ -139,7 +139,7 @@ ggplot(tabladeresultados3) +
 ```{r 4, message=FALSE, echo=FALSE, results= 'hide'}
 
 #Cargo tabla de resultados4 para poder agregarle las interpretaciones
-tabladeresultados4 <- read.csv("C:/Users/jniev/Desktop/MSLQarrab.csv")
+tabladeresultados4 <- read.csv("MSLQarrab.csv")
 
 #Elijo en el dataframe los datos que necesito para poner los resultados numericos
 resultadosmya <- tabladeresultados4[participante,(2:10)]
@@ -292,4 +292,3 @@ Código fuente disponible [aquí](https://github.com/JulietaNieva).
 <a rel="license" href="https://creativecommons.org/licenses/by-sa/4.0/deed.es_ES"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a><br />
 
 
-"C:\Users\jniev\Desktop\Educacion_covid_ICRC.html"
