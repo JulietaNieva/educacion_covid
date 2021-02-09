@@ -10,7 +10,7 @@ output:
     code_download: no
     code_folding: hide
 ---
-  ![](C:/Users/jniev/Desktop/ICRC/Informes_R/ICRC2.png){width='2000px'}
+  ![](ICRC2.png){width='2000px'}
 
 ```{r ospan, message=FALSE, echo=FALSE}
 library(readr)
@@ -18,10 +18,10 @@ library(tidyverse)
 library(lubridate)
 library(ggplot2)
 
-participante <- 18
+participante <- 111111
 
 #Cargo archivo con datos y agrego tabla condicional para ospan
-datos <- read.csv("C:/Users/jniev/Desktop/nuevos_datos/datos.csv") %>%
+datos <- read.csv("datos.csv") %>%
   mutate(rangos_ospan = case_when(
     ospan %in% 0:17 ~ "Esta prueba ha sido realmente un gran desafío para ti debido a que te cuesta concentrarte en varias tareas al mismo tiempo. Manipular información y organizarla mentalmente te requiere un esfuerzo extra (comparado con el promedio). Por ello, trata de planificar paso por paso tus tareas, de concentrarte en una cosa a la vez para mejorar tu rendimiento y aprender estrategias de estudio para llegar a tus metas.",
     ospan %in% 18:27 ~ "Tu capacidad de memoria de trabajo se encuentra dentro del promedio o levemente por debajo del promedio. Esto significa que tienes habilidad para mantener y manipular información mentalmente aunque debas realizar un mayor esfuerzo para concentrarte en situaciones problemáticas más complejas (estas entre el percentil 50 y 25 comparado con otros estudiantes universitarios de Argentina). ¡Buen trabajo!",
@@ -262,7 +262,7 @@ __Motivación:__
     * `r esfuerzore`
 <br><br>
 
-![](C:/Users/jniev/Desktop/ICRC/Informes_R/gracias2.png){width='20000px'}
+![](gracias2.png){width='20000px'}
 <br><br>
 
 <div style="text-align: center"> 
@@ -272,21 +272,21 @@ __Seguinos en nuestras redes:__
 <br>
 
 <center>
-![](C:/Users/jniev/Desktop/ICRC/Informes_R/linkedin.png){width='30px'}
+![](linkedin.png){width='30px'}
 [Linkedin](https://ar.linkedin.com/company/cognitive-icrc)
 </center>
 
 <br>
 
 <center>
-![](C:/Users/jniev/Desktop/ICRC/Informes_R/facebook.jpg){width='30px'}
+![](facebook.jpg){width='30px'}
 [Facebook](https://www.facebook.com/permalink.php?id=101193491706272&story_fbid=133982445094043)
 </center>
 
 <br>
 
 <center>
-![](C:/Users/jniev/Desktop/ICRC/Informes_R/researchgate.png){width='30px'}
+![](researchgate.png){width='30px'}
 [ResearchGate](https://www.researchgate.net/lab/International-Cognitive-Research-Consortium-Mariel-Musso)
 </center>
 
